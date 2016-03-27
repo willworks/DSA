@@ -26,6 +26,7 @@ define(function(require, exports, module) {
                     $rootScope.id = $rootScope.id?$rootScope.id:$location.url().split('/')[2];
                     $scope.param = "if";
                     $scope.uname = authenticationSvc.getUserInfo().uname;
+                    $scope.participant = false;
                     // -------------------------混乱数据区-------------------------
                     
 
@@ -33,13 +34,8 @@ define(function(require, exports, module) {
                     /*
                      * 页面渲染逻辑在这里，确保在请求逻辑搞定之后再开始
                      */
-                    $scope.QueryString = function (item) {
-                        var sValue=$location.absUrl().match(new RegExp("[\?\&]"+item+"=([^\&]*)(\&?)","i"))
-                        return sValue?sValue[1]:sValue
-                    }
 
                     $scope.init = function () {
-                        console.log();
                         // 页面加载请求数据
                         networkSvc.getDetail('func', $rootScope.id)
                         .then(
@@ -83,8 +79,7 @@ define(function(require, exports, module) {
                         title : '新建接口',
                         name : ' ', 
                         description : ' ', 
-                        func_id : "56f7750bd4c4814036a0a32c",
-
+                        func_id : ' ',
                         animation : "am-fade-and-slide-top",
                         template : "common/directive/dialog.html",
                     };
@@ -99,7 +94,7 @@ define(function(require, exports, module) {
                         var data = {
                             "name":$scope.dialog.name,
                             "description":$scope.dialog.description,
-                            "func_id":$scope.dialog.func_id,
+                            "func_id":$rootScope.id
                         };
                         console.log($scope.dialog);
                         networkSvc.addItem($scope.param,data)
@@ -171,8 +166,8 @@ define(function(require, exports, module) {
                     }
 
                     $scope.showDetail = function($index, itemId) {
-                        // alert(itemId + ' 开发中');
-                        $location.path("/function/" + itemId);
+                        alert(itemId + ' 接口具体字段开发中');
+                        // $location.path("/function/" + itemId);
                     };
 
                     $scope.deleteItemPanel = function (index, item_id) {
