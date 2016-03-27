@@ -1,0 +1,5 @@
+ - config.js seajs配置文件
+ - app.js 主入口依赖&路由
+ - directive/ 公用指令
+ - service/ 公用service
+ - filter/ 公用数据过滤 

@@ -1,0 +1,28 @@
+<div class="modal top am-fade-and-slide-top" tabindex="-1" role="dialog" style="z-index: 1050; display: block;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header" ng-show="title">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 class="modal-title" ng-bind-html="title">Title</h4>
+			</div>
+
+			<div class="modal-body">
+				<h4>名称</h4>
+				<input type="text" ng-model="dialog.name" class="form-control"/>
+
+				<h4>描述</h4>
+				<input type="textarea" ng-model="dialog.description" class="form-control"/>
+                
+                <h4>参与人</h4>
+                <input type="textarea" ng-model="dialog.participant_id" class="form-control"/>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="$hide()">关闭</button> 
+				<button type="button" class="btn btn-primary" ng-click="addItem(this)">新建</button>
+			</div>
+
+		</div>
+	</div>
+</div>
