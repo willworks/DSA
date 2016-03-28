@@ -34,7 +34,7 @@ module.exports = function (app) {
     app.get('/DSA/func/list', funcCtrl.list);
     app.post('/DSA/func/add', funcCtrl.add);
     app.get('/DSA/func/:id', funcCtrl.detail);// interface接口list
-    app.put('/DSA/func/:id/edit', funcCtrl.edit);
+    // app.put('/DSA/func/:id/edit', funcCtrl.edit);
     app.delete('/DSA/func/:id/delete', funcCtrl.delete);
 
     // interface接口

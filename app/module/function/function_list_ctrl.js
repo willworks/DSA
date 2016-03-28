@@ -12,7 +12,7 @@ define(function(require, exports, module) {
         require('common/service/authenticationSvc');
 
         // auth为路由改变时的登陆标记
-        app.register.controller('functionListCtrl', function($scope, $http, $rootScope, networkSvc, $location, auth, authenticationSvc, $log, $modal, $select, $alert) {
+        app.register.controller('functionListCtrl', function($scope, $http, $rootScope, networkSvc, $location, auth, authenticationSvc, $log, $modal, $select, $alert, $window) {
 
 
             // 服务端和客户端的双重校验
@@ -169,7 +169,7 @@ define(function(require, exports, module) {
                     $scope.showDetail = function($index, itemId) {
                     	// alert(itemId + ' 开发中');
                         $location.path("/function/" + itemId);
-                        $rootScope.id = itemId;
+                        $window.localStorage["function_id"] = itemId;
                     };
 
                     $scope.deleteItemPanel = function (index, item_id) {

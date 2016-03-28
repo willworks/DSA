@@ -12,7 +12,7 @@ define(function(require, exports, module) {
         require('common/service/authenticationSvc');
 
         // auth为路由改变时的登陆标记
-        app.register.controller('interfaceListCtrl', function($scope, $http, $rootScope, networkSvc, $location, auth, authenticationSvc, $log, $modal, $select, $alert) {
+        app.register.controller('interfaceListCtrl', function($scope, $window, $http, $rootScope, networkSvc, $location, auth, authenticationSvc, $log, $modal, $select, $alert) {
 
 
             // 服务端和客户端的双重校验
@@ -23,7 +23,8 @@ define(function(require, exports, module) {
                 function(){
                     // -------------------------混乱数据区-------------------------
                     $rootScope.title = "Interface Page";
-                    $rootScope.id = $rootScope.id?$rootScope.id:$location.url().split('/')[2];
+                    $scope.id = $window.localStorage["function_id"];
+
                     $scope.param = "if";
                     $scope.uname = authenticationSvc.getUserInfo().uname;
                     $scope.participant = false;
@@ -37,7 +38,7 @@ define(function(require, exports, module) {
 
                     $scope.init = function () {
                         // 页面加载请求数据
-                        networkSvc.getDetail('func', $rootScope.id)
+                        networkSvc.getDetail('func', $scope.id)
                         .then(
                             // networkSvc.getDetail() resolve接口
                             function(res){
@@ -94,7 +95,7 @@ define(function(require, exports, module) {
                         var data = {
                             "name":$scope.dialog.name,
                             "description":$scope.dialog.description,
-                            "func_id":$rootScope.id
+                            "func_id":$scope.id
                         };
                         console.log($scope.dialog);
                         networkSvc.addItem($scope.param,data)
@@ -108,7 +109,7 @@ define(function(require, exports, module) {
                                         break;
                                     case '1':
                                         modal.$hide();
-                                        networkSvc.getDetail('func', $rootScope.id)
+                                        networkSvc.getDetail('func', $scope.id)
                                         .then(
                                             // networkSvc.getDetail() resolve接口
                                             function(res){
@@ -168,6 +169,7 @@ define(function(require, exports, module) {
                     $scope.showDetail = function($index, itemId) {
                         // alert(itemId + ' 接口具体字段开发中');
                         $location.path("/interface/" + itemId + "/edit");
+                        $window.localStorage["interface_id"] = itemId;
                     };
 
                     $scope.deleteItemPanel = function (index, item_id) {

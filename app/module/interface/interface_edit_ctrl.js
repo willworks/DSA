@@ -12,7 +12,7 @@ define(function(require, exports, module) {
         require('common/service/authenticationSvc');
 
         // auth为路由改变时的登陆标记
-        app.register.controller('interfaceEditCtrl', function($scope, $http, $rootScope, networkSvc, $location, auth, authenticationSvc, $log, $modal, $select, $alert) {
+        app.register.controller('interfaceEditCtrl', function($scope, $window, $http, $rootScope, networkSvc, $location, auth, authenticationSvc, $log, $modal, $select, $alert) {
 
 
             // 服务端和客户端的双重校验
@@ -23,7 +23,7 @@ define(function(require, exports, module) {
                 function(){
                     // -------------------------混乱数据区-------------------------
                     $rootScope.title = "Interface Page";
-                    $rootScope.id = $rootScope.id?$rootScope.id:$location.url().split('/')[2];
+                    $scope.id = $window.localStorage["interface_id"];
                     $scope.param = "if";
                     $scope.uname = authenticationSvc.getUserInfo().uname;
                     $scope.participant = false;
@@ -36,8 +36,9 @@ define(function(require, exports, module) {
                      */
 
                     $scope.init = function () {
+                        console.log($scope.id);
                         // 页面加载请求数据
-                        networkSvc.getDetail('func', $rootScope.id)
+                        networkSvc.getDetail('if', $scope.id)
                         .then(
                             // networkSvc.getDetail() resolve接口
                             function(res){
@@ -71,143 +72,12 @@ define(function(require, exports, module) {
                     }
                     $scope.init();
 
+                    $scope.cancelEdit = function () {
 
-                    // http://mgcrea.github.io/angular-strap/
-
-                    $scope.dialog = {
-                        scope: $scope,
-                        title : '新建接口',
-                        name : ' ', 
-                        description : ' ', 
-                        func_id : ' ',
-                        animation : "am-fade-and-slide-top",
-                        template : "common/directive/dialog.html",
-                    };
-
-                    // 弹出新增页面
-                    $scope.addItemPanel = function() {
-                        $modal($scope.dialog).show;
-                    };
-
-                    // 新增内容
-                    $scope.addItem = function (modal) {
-                        var data = {
-                            "name":$scope.dialog.name,
-                            "description":$scope.dialog.description,
-                            "func_id":$rootScope.id
-                        };
-                        console.log($scope.dialog);
-                        networkSvc.addItem($scope.param,data)
-                        .then(
-                            // networkSvc.addItem() resolve接口
-                            function(res){
-                                switch(res.data.code){
-                                    case '-99':
-                                        alert('请先登录');
-                                        $location.path("/login");
-                                        break;
-                                    case '1':
-                                        modal.$hide();
-                                        networkSvc.getDetail('func', $rootScope.id)
-                                        .then(
-                                            // networkSvc.getDetail() resolve接口
-                                            function(res){
-                                                switch(res.data.code){
-                                                    case '-99':
-                                                        alert('请先登录');
-                                                        $location.path("/login");
-                                                        break;
-                                                    case '0':
-                                                        alert('失败了，程序猿在奋力为你解决');
-                                                        break;
-                                                    case '1':
-                                                        $scope.item = res.data.data;
-                                                        break;
-                                                    default:
-                                                        alert('失败了，程序猿在奋力为你解决');
-                                                        break;
-                                                }
-                                            },
-                                            // networkSvc.getDetail() reject接口
-                                            function(err){
-                                                alert('失败了，程序猿在奋力为你解决');
-                                                $log.log(err);
-                                            },
-                                            // networkSvc.getDetail() notify接口
-                                            function(proc){
-                                                // loading
-                                            }
-                                        );
-
-                                        // 将最新插入的数据插入到repeat数组里动态改变
-                                        // $scope.item.push(res.data.data);
-                                        break;
-                                    case '2':
-                                        alert('标题已经存在');
-                                        break;
-                                    case '3':
-                                        alert('数据插入失败');
-                                        break;
-                                    default:
-                                        alert('失败了，程序猿在奋力为你解决');
-                                        break;
-                                }
-                            },
-                            // networkSvc.addItem() reject接口
-                            function(err){
-                                alert('失败了，程序猿在奋力为你解决');
-                                $log.log(err);
-                            },
-                            // networkSvc.addItem() notify接口
-                            function(proc){
-                                // loading
-                            }
-                        );
                     }
 
-                    $scope.showDetail = function($index, itemId) {
-                        alert(itemId + ' 接口具体字段开发中');
-                        // $location.path("/function/" + itemId);
-                    };
-
-                    $scope.deleteItemPanel = function (index, item_id) {
-                        $scope.confirm = true;
-                        $scope.data = {
-                            'index' : index,
-                            'item' : item_id
-                        }
-                    }
-
-                    $scope.deleteItem = function () {
-                        networkSvc.deleteItem($scope.param, $scope.data.item)
-                        .then(
-                            // networkSvc.deleteItem() resolve接口
-                            function(res){
-                                switch(res.data.code){
-                                    case '-99':
-                                        alert('请先登录');
-                                        $location.path("/login");
-                                        break;
-                                    case '1':
-                                        // 删除数组实时更改
-                                        $scope.item.splice($scope.data.index,1);
-                                        $scope.confirm = false;
-                                        break;
-                                    default:
-                                        alert('失败了，程序猿在奋力为你解决');
-                                        break;
-                                }
-                            },
-                            // networkSvc.deleteItem() reject接口
-                            function(err){
-                                alert('失败了，程序猿在奋力为你解决');
-                                $log.log(err);
-                            },
-                            // networkSvc.deleteItem() notify接口
-                            function(proc){
-                                // loading
-                            }
-                        );
+                    $scope.updateItem = function () {
+                        
                     }
                     
                     //=============================end 页面主逻辑位置=============================
