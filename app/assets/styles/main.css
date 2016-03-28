@@ -76,8 +76,19 @@
 	z-index: 9990
 }
 
-.modal-body input,.modal-body button{
+.modal-body input,.modal-body button {
 	margin: 12px 0 12px 0;
 	width: 100%;
 	overflow: hidden;
+}
+
+.breadcrumb {
+	padding: 8px 15px;
+	margin-bottom: 0px;
+	list-style: none;
+	background-color: #FFF;
+}
+
+.nav-tabs {
+	padding-bottom: 45px;
 }

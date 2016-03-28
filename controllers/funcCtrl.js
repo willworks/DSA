@@ -149,8 +149,8 @@ exports.add = function(req, res, next) {
 exports.detail = function(req, res, next) {
     var interfaceModel = global.dbConn.getModel('interface');  
     var id = req.params.id;
-
-    interfaceModel.find({"func_id": id},function(err, data){
+    var delete_flag = false;
+    interfaceModel.find({"func_id": id, "delete_flag": delete_flag},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({

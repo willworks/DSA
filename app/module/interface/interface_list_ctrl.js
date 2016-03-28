@@ -166,8 +166,8 @@ define(function(require, exports, module) {
                     }
 
                     $scope.showDetail = function($index, itemId) {
-                        alert(itemId + ' 接口具体字段开发中');
-                        // $location.path("/function/" + itemId);
+                        // alert(itemId + ' 接口具体字段开发中');
+                        $location.path("/interface/" + itemId + "/edit");
                     };
 
                     $scope.deleteItemPanel = function (index, item_id) {
