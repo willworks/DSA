@@ -25,7 +25,8 @@ define(function(require, exports, module) {
             		$rootScope.title = "Function Page";
                     $scope.param = "func";
             		$scope.uname = authenticationSvc.getUserInfo().uname;
-                    $scope.participant = true;
+                    $scope.functionShow = true;
+                    $scope.interfaceShow = false;
             		// -------------------------混乱数据区-------------------------
             		
 

@@ -27,7 +27,8 @@ define(function(require, exports, module) {
 
                     $scope.param = "if";
                     $scope.uname = authenticationSvc.getUserInfo().uname;
-                    $scope.participant = false;
+                    $scope.functionShow = false;
+                    $scope.interfaceShow = true;
                     // -------------------------混乱数据区-------------------------
                     
 
@@ -170,6 +171,21 @@ define(function(require, exports, module) {
                         // alert(itemId + ' 接口具体字段开发中');
                         $location.path("/interface/" + itemId + "/edit");
                         $window.localStorage["interface_id"] = itemId;
+                    };
+
+                    $scope.aside = {
+                        scope: $scope,
+                        title : '更新返回参数',
+                        name : ' ', 
+                        description : ' ', 
+                        func_id : ' ',
+                        animation : "am-fade-and-slide-top",
+                        template : "common/directive/aside.html",
+                    };
+
+                    // 弹出编辑页面
+                    $scope.eidtItemPanel = function() {
+                        $modal($scope.aside).show;
                     };
 
                     $scope.deleteItemPanel = function (index, item_id) {

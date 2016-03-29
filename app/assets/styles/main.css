@@ -101,3 +101,23 @@
 .modal-dialog {
 	width: 450px;
 }
+
+.aside.left {
+	width: 350px;
+}
+
+.aside .aside-dialog .aside-header {
+    padding: 13.5px 15px;
+}
+
+.aside .aside-dialog .aside-header .close {
+    padding: 0px 8px;
+}
+
+.aside-title {
+	color: #FFF;
+}
+
+.aside-header .close {
+	line-height: 0.9;
+}

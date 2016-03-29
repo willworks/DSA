@@ -1,7 +1,7 @@
 /// <reference path="../typings/node/node.d.ts"/>
-/*
+/* 请求格式 api/function_name/interface_name
 var xmlhttp = new XMLHttpRequest();
-xmlhttp.open('GET','http://localhost:3000/api',true);
+xmlhttp.open('GET','http://localhost:3000/api/mst/getUserInfo',true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 xmlhttp.send();
 */

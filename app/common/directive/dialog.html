@@ -14,8 +14,19 @@
 				<h4>描述</h4>
 				<input type="textarea" ng-model="dialog.description" class="form-control"/>
                 
-                <h4 ng-if="participant">参与人</h4>
-                <input ng-if="participant" type="textarea" ng-model="dialog.participant_id" class="form-control"/>
+                <h4 ng-if="functionShow">参与人</h4>
+                <input ng-if="functionShow" type="textarea" ng-model="dialog.participant_id" class="form-control"/>
+
+				<div ng-if="interfaceShow">
+					<h4>请求方法</h4>
+					<input type="textarea" ng-model="dialog.participant_id" class="form-control"/>
+
+					<h4>请求参数</h4>
+					<input type="textarea" ng-model="dialog.participant_id" class="form-control"/>
+
+					<h4>返回方法</h4>
+					<input type="textarea" ng-model="dialog.participant_id" class="form-control"/>
+				</div>
 
 			</div>
 			<div class="modal-footer">

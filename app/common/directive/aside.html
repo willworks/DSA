@@ -1,0 +1,26 @@
+<div class="aside left am-slide-left" tabindex="-1" role="dialog" style="z-index: 1050; display: block;">
+    <div class="aside-dialog">
+        <div class="aside-content">
+            <div class="aside-header" ng-show="title">
+                <button type="button" class="close" ng-click="$hide()">×</button>
+                <h4 class="aside-title" ng-bind-html="title">Title</h4></div>
+            <div class="aside-body">
+
+                <h4>Text in aside</h4>
+                <p ng-bind-html="content">Hello Aside<br>This is a multiline message!</p>
+                <pre>2 + 3 = 5</pre>
+
+                <h4>Popover in aside</h4>
+                <p>This
+                    <button type="button" class="btn btn-default popover-test" data-title="A Title" data-content="And here's some amazing content. It's very engaging. right?"
+                    bs-popover="">button</button> should trigger a popover on click.
+                </p>
+
+            </div>
+            <div class="aside-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+                <button type="button" class="btn btn-primary" ng-click="$hide()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
