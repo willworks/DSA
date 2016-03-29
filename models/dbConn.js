@@ -13,6 +13,12 @@ var participant = new mongoose.Schema({
 	delete_flag : {type:String,required:true}
 });
 
+var params = new mongoose.Schema({
+	param : {type:String,required:true},
+	value : {type:String,required:true},
+	delete_flag : {type:String,required:true}
+});
+
 mongoose.model('function',new Schema({
 	name:{type:String,required:true},
 	description:{type:String,required:true},
@@ -21,6 +27,17 @@ mongoose.model('function',new Schema({
 	delete_flag:{type:String,required:true}
 }));
 
+mongoose.model('interface',new Schema({
+	name:{type:String,required:true},
+	description:{type:String,required:true},
+	method:{type:String,required:true},
+	req_data:[params],
+	res_data:[params],
+	func_id:{type:String,required:true},
+	func_name:{type:String,required:true},
+	creator_id:{type:String,required:true},
+	delete_flag:{type:String,required:true}
+}));
 
 module.exports = { 
 	getModel: function(type){ 

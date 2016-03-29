@@ -81,7 +81,7 @@ define(function(require, exports, module) {
                         title : '新建接口',
                         name : ' ', 
                         description : ' ', 
-                        func_id : ' ',
+                        method : ' ',
                         animation : "am-fade-and-slide-top",
                         template : "common/directive/dialog.html",
                     };
@@ -96,6 +96,7 @@ define(function(require, exports, module) {
                         var data = {
                             "name":$scope.dialog.name,
                             "description":$scope.dialog.description,
+                            "method":$scope.dialog.method,
                             "func_id":$scope.id
                         };
                         console.log($scope.dialog);

@@ -12,12 +12,14 @@ exports.add = function(req, res, next) {
     var functionModel = global.dbConn.getModel('function'); 
     var name = req.body.name;
     var description = req.body.description;
+    var method = req.body.method;
+
     var func_id = req.body.func_id;
     var func_name;
     var creator_id = req.session.user._id;
     var delete_flag = 'false';
 
-
+    console.log(req.body);
     interfaceModel.findOne({"name": name, "func_id": func_id},function(err, data){
         if(err){ 
             // 接口返回对象 res.send();
@@ -50,6 +52,8 @@ exports.add = function(req, res, next) {
                     interfaceModel.create({ 
                         'name' : name,
                         'description' : description,
+                        'method' : method,
+
                         'func_id' : func_id,
                         'func_name' : func_name,
                         'creator_id' : creator_id,

@@ -8,25 +8,35 @@
 			</div>
 
 			<div class="modal-body">
-				<h4>名称</h4>
-				<input type="text" ng-model="dialog.name" class="form-control"/>
 
-				<h4>描述</h4>
-				<input type="textarea" ng-model="dialog.description" class="form-control"/>
-                
-                <h4 ng-if="functionShow">参与人</h4>
-                <input ng-if="functionShow" type="textarea" ng-model="dialog.participant_id" class="form-control"/>
-
-				<div ng-if="interfaceShow">
-					<h4>请求方法</h4>
-					<input type="textarea" ng-model="dialog.participant_id" class="form-control"/>
-
-					<h4>请求参数</h4>
-					<input type="textarea" ng-model="dialog.participant_id" class="form-control"/>
-
-					<h4>返回方法</h4>
-					<input type="textarea" ng-model="dialog.participant_id" class="form-control"/>
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">访问路径</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.name">
 				</div>
+
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">描述信息</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.description">
+				</div>
+
+				<div class="input-group" ng-if="functionShow">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">参与人员</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.participant_id">
+				</div>
+
+				<div class="input-group" ng-if="interfaceShow">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">请求方法</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.method">
+				</div>
+				
 
 			</div>
 			<div class="modal-footer">

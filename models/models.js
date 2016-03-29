@@ -9,13 +9,5 @@ module.exports = {
 		name:{type:String,required:true},
 		password:{type:String,required:true},
 		delete_flag:{type:String,required:true}
-	},
-	interface:{
-		name:{type:String,required:true},
-		description:{type:String,required:true},
-		func_id:{type:String,required:true},
-		func_name:{type:String,required:true},
-		creator_id:{type:String,required:true},
-		delete_flag:{type:String,required:true}
 	}
 };
