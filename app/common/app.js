@@ -58,7 +58,7 @@ define(function(require, exports, module) {
                 }]
             }
         })
-        .when('/interface/:id/edit', {
+        .when('/interface/:id', {
             name:"修改接口",
             controller: 'interfaceEditCtrl',
             controllerUrl: './module/interface/interface_edit_ctrl.js',

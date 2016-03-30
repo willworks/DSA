@@ -169,8 +169,7 @@ define(function(require, exports, module) {
                     }
 
                     $scope.showDetail = function($index, itemId) {
-                        // alert(itemId + ' 接口具体字段开发中');
-                        $location.path("/interface/" + itemId + "/edit");
+                        $location.path("/interface/" + itemId);
                         $window.localStorage["interface_id"] = itemId;
                     };
 

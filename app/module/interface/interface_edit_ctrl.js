@@ -72,6 +72,98 @@ define(function(require, exports, module) {
                     }
                     $scope.init();
 
+                    $scope.dialog = {
+                        scope: $scope,
+                        title : '新建接口',
+                        name : ' ', 
+                        description : ' ', 
+                        method : ' ',
+                        animation : "am-fade-and-slide-top",
+                        template : "common/directive/dialog.html",
+                    };
+
+                    // 弹出新增页面
+                    $scope.addItemPanel = function() {
+                        $modal($scope.dialog).show;
+                    };
+
+                    // 新增内容
+                    $scope.addItem = function (modal) {
+                        var data = {
+                            "name":$scope.dialog.name,
+                            "description":$scope.dialog.description,
+                            "method":$scope.dialog.method,
+                            "func_id":$scope.id
+                        };
+                        console.log($scope.dialog);
+                        networkSvc.addItem($scope.param,data)
+                        .then(
+                            // networkSvc.addItem() resolve接口
+                            function(res){
+                                switch(res.data.code){
+                                    case '-99':
+                                        alert('请先登录');
+                                        $location.path("/login");
+                                        break;
+                                    case '1':
+                                        modal.$hide();
+                                        networkSvc.getDetail('func', $scope.id)
+                                        .then(
+                                            // networkSvc.getDetail() resolve接口
+                                            function(res){
+                                                switch(res.data.code){
+                                                    case '-99':
+                                                        alert('请先登录');
+                                                        $location.path("/login");
+                                                        break;
+                                                    case '0':
+                                                        alert('失败了，程序猿在奋力为你解决');
+                                                        break;
+                                                    case '1':
+                                                        $scope.item = res.data.data;
+                                                        break;
+                                                    default:
+                                                        alert('失败了，程序猿在奋力为你解决');
+                                                        break;
+                                                }
+                                            },
+                                            // networkSvc.getDetail() reject接口
+                                            function(err){
+                                                alert('失败了，程序猿在奋力为你解决');
+                                                $log.log(err);
+                                            },
+                                            // networkSvc.getDetail() notify接口
+                                            function(proc){
+                                                // loading
+                                            }
+                                        );
+
+                                        // 将最新插入的数据插入到repeat数组里动态改变
+                                        // $scope.item.push(res.data.data);
+                                        break;
+                                    case '2':
+                                        alert('标题已经存在');
+                                        break;
+                                    case '3':
+                                        alert('数据插入失败');
+                                        break;
+                                    default:
+                                        alert('失败了，程序猿在奋力为你解决');
+                                        break;
+                                }
+                            },
+                            // networkSvc.addItem() reject接口
+                            function(err){
+                                alert('失败了，程序猿在奋力为你解决');
+                                $log.log(err);
+                            },
+                            // networkSvc.addItem() notify接口
+                            function(proc){
+                                // loading
+                            }
+                        );
+                    }
+
                     $scope.cancelEdit = function () {
 
                     }

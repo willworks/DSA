@@ -6,15 +6,33 @@
                 <h4 class="aside-title" ng-bind-html="title">Title</h4></div>
             <div class="aside-body">
 
-                <h4>Text in aside</h4>
-                <p ng-bind-html="content">Hello Aside<br>This is a multiline message!</p>
-                <pre>2 + 3 = 5</pre>
+                <div class="input-group" style="padding:10px 0">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">访问路径</button>
+                    </span>
+                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.name">
+                </div>
 
-                <h4>Popover in aside</h4>
-                <p>This
-                    <button type="button" class="btn btn-default popover-test" data-title="A Title" data-content="And here's some amazing content. It's very engaging. right?"
-                    bs-popover="">button</button> should trigger a popover on click.
-                </p>
+                <div class="input-group" style="padding:10px 0">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">描述信息</button>
+                    </span>
+                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.description">
+                </div>
+
+                <div class="input-group" style="padding:10px 0" ng-if="functionShow">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">参与人员</button>
+                    </span>
+                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.participant_id">
+                </div>
+
+                <div class="input-group" style="padding:10px 0" ng-if="interfaceShow">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">请求方法</button>
+                    </span>
+                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.method">
+                </div>
 
             </div>
             <div class="aside-footer">
