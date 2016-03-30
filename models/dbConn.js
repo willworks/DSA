@@ -14,8 +14,11 @@ var participant = new mongoose.Schema({
 });
 
 var params = new mongoose.Schema({
-	param : {type:String,required:true},
-	value : {type:String,required:true},
+	name : {type:String,required:true}, // value
+	type : {type:String,required:true},
+	meaning : {type:String,required:true},
+	comment : {type:String,required:true},
+	value : {type:String,required:true}, // key 核心实现
 	delete_flag : {type:String,required:true}
 });
 
