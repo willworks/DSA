@@ -1,92 +1,17 @@
 /// <reference path="../typings/node/node.d.ts"/>
 /*
 var xmlhttp = new XMLHttpRequest();
-var data = 'name=0123&description=2&func_id=56f768fef7d1b9a0010471a6';
-xmlhttp.open('POST','http://localhost:3000/DSA/if/add',true);
+var data = 'name=name&type=int&meaning=姓名&comment=中文英文都行&if_id=56f91600c0da4ef4029a360f&value=钟汉津';
+xmlhttp.open('POST','http://localhost:3000/DSA/req/add',true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 xmlhttp.send(data);
 */
 
-exports.add = function(req, res, next) {
-    var interfaceModel = global.dbConn.getModel('interface'); 
-    var functionModel = global.dbConn.getModel('function'); 
-    var name = req.body.name;
-    var description = req.body.description;
-    var method = req.body.method;
-
-    var func_id = req.body.func_id;
-    var func_name;
-    var creator_id = req.session.user._id;
-    var delete_flag = 'false';
-
-    console.log(req.body);
-    interfaceModel.findOne({"name": name, "func_id": func_id},function(err, data){
-        if(err){ 
-            // 接口返回对象 res.send();
-            res.send({
-                "code":"0",
-                "msg":err,
-                "data":""
-            });
-            console.log(err);
-        }else if(data){ 
-            req.session.error = '接口已存在';
-            res.send({
-                "code":"2",
-                "msg":'exist',
-                "data":""
-            });
-        }else{ 
-            functionModel.findOne({"_id": func_id},function(err, data){
-                if(err){ 
-                    // 接口返回对象 res.send();
-                    res.send({
-                        "code":"0",
-                        "msg":err,
-                        "data":""
-                    });
-                    console.log(err);
-                } else{ 
-                    func_name = data.name;
-
-                    interfaceModel.create({ 
-                        'name' : name,
-                        'description' : description,
-                        'method' : method,
-
-                        'func_id' : func_id,
-                        'func_name' : func_name,
-                        'creator_id' : creator_id,
-                        'delete_flag' : delete_flag
-                    },function(err,data){ 
-                        if (err) {
-                            // 接口返回对象 res.send();
-                            res.send({
-                                "code":"0",
-                                "msg":err,
-                                "data":""
-                            });
-                            console.log(err);
-                        } else {
-                            res.send({
-                                "code":"1",
-                                "msg":"success",
-                                "data":data
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
-};
-
-
-exports.detail = function(req, res, next) {
-    var interfaceModel = global.dbConn.getModel('interface');  
+exports.list = function(req, res, next) {
+    var reqModel = global.dbConn.getModel('req');  
     var id = req.params.id;
 
-    interfaceModel.findOne({"_id": id},function(err, data){
+    reqModel.findOne({"_id": id},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({
@@ -96,7 +21,96 @@ exports.detail = function(req, res, next) {
             });
             console.log(err);
         }else if(!data){
-            req.session.error = '接口不存在';
+            req.session.error = '参数不存在';
+            res.send({
+                "code":"-2",
+                "msg":"Not Found",
+                "data":""
+            });
+        }else{
+            res.send({
+                "code":"1",
+                "msg":"success",
+                "data":data
+            });
+        }
+    });
+};
+
+
+exports.add = function(req, res, next) {
+    var reqModel = global.dbConn.getModel('req'); 
+    var name = req.body.name;
+    var type = req.body.type;
+    var meaning = req.body.meaning;
+    var comment = req.body.comment;
+    var if_id = req.body.if_id;
+    var value = req.body.value;
+    var delete_flag = 'false';
+
+    console.log(req.body);
+    reqModel.findOne({"name": name, "if_id": if_id},function(err, data){
+        if(err){ 
+            // 接口返回对象 res.send();
+            res.send({
+                "code":"0",
+                "msg":err,
+                "data":""
+            });
+            console.log(err);
+        }else if(data){ 
+            req.session.error = '参数已存在';
+            res.send({
+                "code":"2",
+                "msg":'exist',
+                "data":""
+            });
+        }else{ 
+            reqModel.create({ 
+                'name' : name,
+                'type' : type,
+                'meaning' : meaning,
+                'comment' : comment,
+                'if_id' : if_id,
+                'value' : value,
+                'delete_flag' : delete_flag
+            },function(err,data){ 
+                if (err) {
+                    // 接口返回对象 res.send();
+                    res.send({
+                        "code":"0",
+                        "msg":err,
+                        "data":""
+                    });
+                    console.log(err);
+                } else {
+                    res.send({
+                        "code":"1",
+                        "msg":"success",
+                        "data":data
+                    });
+                }
+            });
+        }
+    });
+};
+
+
+exports.detail = function(req, res, next) {
+    var reqModel = global.dbConn.getModel('req');  
+    var id = req.params.id;
+
+    reqModel.findOne({"_id": id},function(err, data){
+        if(err){
+            // 接口返回对象 res.send();
+            res.send({
+                "code":"0",
+                "msg":err,
+                "data":""
+            });
+            console.log(err);
+        }else if(!data){
+            req.session.error = '参数不存在';
             res.send({
                 "code":"-2",
                 "msg":"Not Found",
@@ -114,14 +128,14 @@ exports.detail = function(req, res, next) {
 
 
 exports.edit = function(req, res, next) {
-    var interfaceModel = global.dbConn.getModel('interface'); 
+    var reqModel = global.dbConn.getModel('req'); 
     // console.log(req.params.id);
     // console.log(req.body);
     var id = req.params.id;
     var params = req.body;
     var delete_flag = 'true';
 
-    interfaceModel.findOneAndUpdate({"_id": id}, params, {new: false}, function(err, data){
+    reqModel.findOneAndUpdate({"_id": id}, params, {new: false}, function(err, data){
         if(err){ 
             // 接口返回对象 res.send();
             res.send({
@@ -131,7 +145,7 @@ exports.edit = function(req, res, next) {
             });
             console.log(err);
         }else if(!data){
-            req.session.error = '接口不存在';
+            req.session.error = '参数不存在';
             res.send({
                 "code":"-2",
                 "msg":"Not Found",
@@ -149,12 +163,12 @@ exports.edit = function(req, res, next) {
 
 
 exports.delete = function(req, res, next) {
-    var interfaceModel = global.dbConn.getModel('interface'); 
+    var reqModel = global.dbConn.getModel('req'); 
     // console.log(req.params.id);
     var id = req.params.id;
     var delete_flag = 'true';
 
-    interfaceModel.findOneAndUpdate({"_id": id}, {"delete_flag": delete_flag}, {new: false}, function(err, data){
+    reqModel.findOneAndUpdate({"_id": id}, {"delete_flag": delete_flag}, {new: false}, function(err, data){
         if(err){ 
             // 接口返回对象 res.send();
             res.send({
@@ -164,7 +178,7 @@ exports.delete = function(req, res, next) {
             });
             console.log(err);
         }else if(!data){
-            req.session.error = '接口不存在';
+            req.session.error = '参数不存在';
             res.send({
                 "code":"-2",
                 "msg":"Not Found",

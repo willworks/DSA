@@ -40,6 +40,7 @@ module.exports = function (app) {
     app.delete('/DSA/func/:id/delete', funcCtrl.delete);
 
     // interface接口
+    app.get('/DSA/if/list', reqCtrl.list);// 罗列req和res
     app.post('/DSA/if/add', ifCtrl.add);
     app.get('/DSA/if/:id', ifCtrl.detail);
     app.put('/DSA/if/:id/edit', ifCtrl.edit);
