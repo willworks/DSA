@@ -65,7 +65,7 @@
                             <td>{{item.creator_id}}</td>
                             <td style="white-space:nowrap">
                                 <button type="button" class="btn btn-sm btn-info"  data-animation="am-fade-and-scale" data-placement="center" ng-click="showDetail($index, item._id)">编辑</button>
-                                <button type="button" class="btn btn-sm btn-danger" style="color: #d43f3a;background-color: #FFF" ng-click="eidtItemPanel()">配置</button>
+                                <button type="button" class="btn btn-sm btn-danger" style="color: #d43f3a;background-color: #FFF" ng-click="eidtItemPanel(item._id)">配置</button>
                                 <button type="button" class="btn btn-sm btn-danger" ng-click="deleteItemPanel($index, item._id)">删除</button>
                             </td>
                         </tr>

@@ -10,16 +10,15 @@ xmlhttp.send(data);
 exports.add = function(req, res, next) {
     var resModel = global.dbConn.getModel('res'); 
     var name = req.body.name;
-    var description = req.body.description;
-    var method = req.body.method;
-
-    var func_id = req.body.func_id;
-    var func_name;
-    var creator_id = req.session.user._id;
+    var type = req.body.type;
+    var meaning = req.body.meaning;
+    var comment = req.body.comment;
+    var if_id = req.body.if_id;
+    var value = req.body.value;
     var delete_flag = 'false';
 
     console.log(req.body);
-    resModel.findOne({"name": name, "func_id": func_id},function(err, data){
+    resModel.findOne({"name": name, "if_id": if_id},function(err, data){
         if(err){ 
             // 接口返回对象 res.send();
             res.send({
@@ -29,15 +28,23 @@ exports.add = function(req, res, next) {
             });
             console.log(err);
         }else if(data){ 
-            req.session.error = '接口已存在';
+            req.session.error = '参数已存在';
             res.send({
                 "code":"2",
                 "msg":'exist',
                 "data":""
             });
         }else{ 
-            functionModel.findOne({"_id": func_id},function(err, data){
-                if(err){ 
+            resModel.create({ 
+                'name' : name,
+                'type' : type,
+                'meaning' : meaning,
+                'comment' : comment,
+                'if_id' : if_id,
+                'value' : value,
+                'delete_flag' : delete_flag
+            },function(err,data){ 
+                if (err) {
                     // 接口返回对象 res.send();
                     res.send({
                         "code":"0",
@@ -45,34 +52,11 @@ exports.add = function(req, res, next) {
                         "data":""
                     });
                     console.log(err);
-                } else{ 
-                    func_name = data.name;
-
-                    resModel.create({ 
-                        'name' : name,
-                        'description' : description,
-                        'method' : method,
-
-                        'func_id' : func_id,
-                        'func_name' : func_name,
-                        'creator_id' : creator_id,
-                        'delete_flag' : delete_flag
-                    },function(err,data){ 
-                        if (err) {
-                            // 接口返回对象 res.send();
-                            res.send({
-                                "code":"0",
-                                "msg":err,
-                                "data":""
-                            });
-                            console.log(err);
-                        } else {
-                            res.send({
-                                "code":"1",
-                                "msg":"success",
-                                "data":data
-                            });
-                        }
+                } else {
+                    res.send({
+                        "code":"1",
+                        "msg":"success",
+                        "data":data
                     });
                 }
             });

@@ -24,8 +24,8 @@ define(function(require, exports, module) {
                     // -------------------------混乱数据区-------------------------
                     $rootScope.title = "Interface Page";
                     $scope.id = $window.localStorage["interface_id"];
-                    $scope.param = "if";
                     $scope.uname = authenticationSvc.getUserInfo().uname;
+                    $scope.detailShow = true;
                     $scope.participant = false;
                     // -------------------------混乱数据区-------------------------
                     
@@ -38,10 +38,11 @@ define(function(require, exports, module) {
                     $scope.init = function () {
                         console.log($scope.id);
                         // 页面加载请求数据
-                        networkSvc.getDetail('if', $scope.id)
+                        networkSvc.getDetail('if', $scope.id, 'req')
                         .then(
                             // networkSvc.getDetail() resolve接口
                             function(res){
+                                console.log(res);
                                 switch(res.data.code){
                                     case '-99':
                                         alert('请先登录');
@@ -51,8 +52,40 @@ define(function(require, exports, module) {
                                         alert('失败了，程序猿在奋力为你解决');
                                         break;
                                     case '1':
-                                        $scope.item = res.data.data;
-                                        console.log($scope.item);
+                                        $scope.reqs = res.data.data;
+                                        break;
+                                    default:
+                                        $scope.info = '失败了，程序猿在奋力为你解决';
+                                        break;
+                                }
+                            },
+                            // networkSvc.getDetail() reject接口
+                            function(err){
+                                alert('失败了，程序猿在奋力为你解决');
+                                $log.log(err);
+                            },
+                            // networkSvc.getDetail() notify接口
+                            function(proc){
+                                // loading
+                            }
+                        );
+
+                        // 页面加载请求数据
+                        networkSvc.getDetail('if', $scope.id, 'res')
+                        .then(
+                            // networkSvc.getDetail() resolve接口
+                            function(res){
+                                console.log(res);
+                                switch(res.data.code){
+                                    case '-99':
+                                        alert('请先登录');
+                                        $location.path("/login");
+                                        break;
+                                    case '0':
+                                        alert('失败了，程序猿在奋力为你解决');
+                                        break;
+                                    case '1':
+                                        $scope.ress = res.data.data;
                                         break;
                                     default:
                                         $scope.info = '失败了，程序猿在奋力为你解决';
@@ -74,29 +107,34 @@ define(function(require, exports, module) {
 
                     $scope.dialog = {
                         scope: $scope,
-                        title : '新建接口',
-                        name : ' ', 
-                        description : ' ', 
-                        method : ' ',
+                        title : '添加参数',
+                        name : ' ',
+                        type : ' ',
+                        meaning : ' ',
+                        comment : ' ',
+                        value : ' ',
                         animation : "am-fade-and-slide-top",
                         template : "common/directive/dialog.html",
                     };
 
                     // 弹出新增页面
-                    $scope.addItemPanel = function() {
+                    $scope.addItemPanel = function(type) {
                         $modal($scope.dialog).show;
+                        $scope.type = type;
                     };
 
-                    // 新增内容
+                    // 新增req参数
                     $scope.addItem = function (modal) {
                         var data = {
                             "name":$scope.dialog.name,
-                            "description":$scope.dialog.description,
-                            "method":$scope.dialog.method,
-                            "func_id":$scope.id
+                            "type":$scope.dialog.type,
+                            "meaning":$scope.dialog.meaning,
+                            "comment":$scope.dialog.comment,
+                            "value":$scope.dialog.value,
+                            "if_id":$scope.id
                         };
                         console.log($scope.dialog);
-                        networkSvc.addItem($scope.param,data)
+                        networkSvc.addItem($scope.type,data)
                         .then(
                             // networkSvc.addItem() resolve接口
                             function(res){
@@ -107,7 +145,7 @@ define(function(require, exports, module) {
                                         break;
                                     case '1':
                                         modal.$hide();
-                                        networkSvc.getDetail('func', $scope.id)
+                                        networkSvc.getDetail('if', $scope.id, $scope.type)
                                         .then(
                                             // networkSvc.getDetail() resolve接口
                                             function(res){
@@ -120,7 +158,11 @@ define(function(require, exports, module) {
                                                         alert('失败了，程序猿在奋力为你解决');
                                                         break;
                                                     case '1':
-                                                        $scope.item = res.data.data;
+                                                        if ($scope.type == 'req') {
+                                                            $scope.reqs = res.data.data;
+                                                        } else {
+                                                            $scope.ress = res.data.data;
+                                                        }
                                                         break;
                                                     default:
                                                         alert('失败了，程序猿在奋力为你解决');

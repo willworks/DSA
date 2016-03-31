@@ -184,8 +184,39 @@ define(function(require, exports, module) {
                     };
 
                     // 弹出编辑页面
-                    $scope.eidtItemPanel = function() {
+                    $scope.eidtItemPanel = function(id) {
                         $modal($scope.aside).show;
+                        networkSvc.getDetail('if', id, 'res')
+                        .then(
+                            // networkSvc.getDetail() resolve接口
+                            function(res){
+                                console.log(res);
+                                switch(res.data.code){
+                                    case '-99':
+                                        alert('请先登录');
+                                        $location.path("/login");
+                                        break;
+                                    case '0':
+                                        alert('失败了，程序猿在奋力为你解决');
+                                        break;
+                                    case '1':
+                                        $scope.ress = res.data.data;
+                                        break;
+                                    default:
+                                        $scope.info = '失败了，程序猿在奋力为你解决';
+                                        break;
+                                }
+                            },
+                            // networkSvc.getDetail() reject接口
+                            function(err){
+                                alert('失败了，程序猿在奋力为你解决');
+                                $log.log(err);
+                            },
+                            // networkSvc.getDetail() notify接口
+                            function(proc){
+                                // loading
+                            }
+                        );
                     };
 
                     $scope.deleteItemPanel = function (index, item_id) {

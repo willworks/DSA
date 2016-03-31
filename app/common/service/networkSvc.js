@@ -35,9 +35,14 @@ define(function(require, exports, module) {
                 return deferred.promise;
             },
 
-            getDetail : function(resource, resource_id) {
+            getDetail : function(resource, resource_id, type) {
                 var deferred = $q.defer(); // 声明承诺
-                var url = 'DSA/' + resource + '/' + resource_id;
+                var url;
+                if (!type) {
+                    url = 'DSA/' + resource + '/' + resource_id;
+                } else {
+                    url = 'DSA/' + resource + '/' + resource_id + '/' + type;
+                }
                 $http.get(url)
                 .then(
                     function(res) {

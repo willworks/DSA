@@ -4,37 +4,18 @@
             <div class="aside-header" ng-show="title">
                 <button type="button" class="close" ng-click="$hide()">×</button>
                 <h4 class="aside-title" ng-bind-html="title">Title</h4></div>
+
             <div class="aside-body">
 
-                <div class="input-group" style="padding:10px 0">
+                <div class="input-group" style="padding:10px 0" ng-repeat="res in ress">
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button">访问路径</button>
+                        <button class="btn btn-primary" type="button">{{res.name}}</button>
                     </span>
-                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.name">
-                </div>
-
-                <div class="input-group" style="padding:10px 0">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button">描述信息</button>
-                    </span>
-                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.description">
-                </div>
-
-                <div class="input-group" style="padding:10px 0" ng-if="functionShow">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button">参与人员</button>
-                    </span>
-                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.participant_id">
-                </div>
-
-                <div class="input-group" style="padding:10px 0" ng-if="interfaceShow">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button">请求方法</button>
-                    </span>
-                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.method">
+                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.name" placeholder="{{res.value}}">
                 </div>
 
             </div>
+
             <div class="aside-footer">
                 <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
                 <button type="button" class="btn btn-primary" ng-click="$hide()">保存</button>

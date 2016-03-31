@@ -9,14 +9,14 @@
 
 			<div class="modal-body">
 
-				<div class="input-group">
+				<div class="input-group" ng-if="functionShow || interfaceShow">
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button">访问路径</button>
 					</span>
 					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.name">
 				</div>
 
-				<div class="input-group">
+				<div class="input-group" ng-if="functionShow || interfaceShow">
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button">描述信息</button>
 					</span>
@@ -36,9 +36,44 @@
 					</span>
 					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.method">
 				</div>
-				
+
+				<div class="input-group" ng-if="detailShow">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">名称</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.name">
+				</div>
+
+				<div class="input-group" ng-if="detailShow">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">类型</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.type">
+				</div>
+
+				<div class="input-group" ng-if="detailShow">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">含义</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.meaning">
+				</div>
+
+				<div class="input-group" ng-if="detailShow">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">备注</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.comment">
+				</div>
+
+				<div class="input-group" ng-if="detailShow">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button">数据</button>
+					</span>
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.value">
+				</div>
 
 			</div>
+
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" ng-click="$hide()">关闭</button> 
 				<button type="button" class="btn btn-primary" ng-click="addItem(this)">新建</button>

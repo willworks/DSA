@@ -82,11 +82,42 @@ exports.add = function(req, res, next) {
 };
 
 
-exports.detail = function(req, res, next) {
-    var interfaceModel = global.dbConn.getModel('interface');  
+exports.detailReq = function(req, res, next) {
+    var reqModel = global.dbConn.getModel('req');  
     var id = req.params.id;
 
-    interfaceModel.findOne({"_id": id},function(err, data){
+    reqModel.find({"if_id": id},function(err, data){
+        if(err){
+            // 接口返回对象 res.send();
+            res.send({
+                "code":"0",
+                "msg":err,
+                "data":""
+            });
+            console.log(err);
+        }else if(!data){
+            req.session.error = '接口不存在';
+            res.send({
+                "code":"-2",
+                "msg":"Not Found",
+                "data":""
+            });
+        }else{
+            res.send({
+                "code":"1",
+                "msg":"success",
+                "data":data
+            });
+        }
+    });
+};
+
+
+exports.detailRes = function(req, res, next) {
+    var resModel = global.dbConn.getModel('res');  
+    var id = req.params.id;
+
+    resModel.find({"if_id": id},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({

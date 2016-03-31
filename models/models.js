@@ -33,7 +33,7 @@ module.exports = {
 		type : {type:String,required:true},
 		meaning : {type:String,required:true},
 		comment : {type:String,required:true},
-		if_name:{type:String,required:true}, // 根据interface _id来获取数据
+		if_id:{type:String,required:true}, // 根据interface _id来获取数据
 		value : {type:String,required:true}, // key 核心实现
 		delete_flag : {type:String,required:true}
 	}

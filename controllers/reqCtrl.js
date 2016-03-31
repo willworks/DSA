@@ -7,37 +7,6 @@ xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 xmlhttp.send(data);
 */
 
-exports.list = function(req, res, next) {
-    var reqModel = global.dbConn.getModel('req');  
-    var id = req.params.id;
-
-    reqModel.findOne({"_id": id},function(err, data){
-        if(err){
-            // 接口返回对象 res.send();
-            res.send({
-                "code":"0",
-                "msg":err,
-                "data":""
-            });
-            console.log(err);
-        }else if(!data){
-            req.session.error = '参数不存在';
-            res.send({
-                "code":"-2",
-                "msg":"Not Found",
-                "data":""
-            });
-        }else{
-            res.send({
-                "code":"1",
-                "msg":"success",
-                "data":data
-            });
-        }
-    });
-};
-
-
 exports.add = function(req, res, next) {
     var reqModel = global.dbConn.getModel('req'); 
     var name = req.body.name;
