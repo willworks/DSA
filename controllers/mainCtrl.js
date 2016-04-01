@@ -13,9 +13,9 @@ exports.get = function(req, res, next) {
     // ======================================================================
     var function_name = req.originalUrl.split('/')[2];
     var interface_name = req.originalUrl.split('/')[3];
-    var interfaceModel = global.dbConn.getModel('interface');  
+    var resModel = global.dbConn.getModel('res');  
 
-    interfaceModel.findOne({"name": interface_name, "func_name": function_name},function(err, data){
+    resModel.findOne({"if_name": interface_name, "func_name": function_name},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({
@@ -49,9 +49,9 @@ exports.post = function(req, res, next) {
     // ======================================================================
     var function_name = req.originalUrl.split('/')[2];
     var interface_name = req.originalUrl.split('/')[3];
-    var interfaceModel = global.dbConn.getModel('interface');  
+    var resModel = global.dbConn.getModel('res');  
 
-    interfaceModel.findOne({"name": interface_name, "func_name": function_name},function(err, data){
+    resModel.findOne({"if_name": interface_name, "func_name": function_name},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({
