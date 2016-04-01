@@ -25,7 +25,7 @@ exports.list = function(req, res, next) {
             });
             console.log(err);
         }else if(!data){
-            req.session.error = '通知不存在';
+            req.session.error = '功能不存在';
             res.send({
                 "code":"-2",
                 "msg":"Not Found",
@@ -75,7 +75,7 @@ exports.add = function(req, res, next) {
             console.log(err);
         }else if(data){ 
             // 对应name已经有数据
-            req.session.error = '通知已存在';
+            req.session.error = '功能已存在';
             // 接口返回对象 res.send();
             res.send({
                 "code":"2",
@@ -195,7 +195,7 @@ exports.edit = function(req, res, next) {
             });
             console.log(err);
         }else if(!data){
-            req.session.error = '通知不存在';
+            req.session.error = '功能不存在';
             res.send({
                 "code":"-2",
                 "msg":"Not Found",
@@ -228,7 +228,7 @@ exports.delete = function(req, res, next) {
             });
             console.log(err);
         }else if(!data){
-            req.session.error = '通知不存在';
+            req.session.error = '功能不存在';
             res.send({
                 "code":"-2",
                 "msg":"Not Found",

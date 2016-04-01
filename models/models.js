@@ -26,6 +26,8 @@ module.exports = {
 		comment : {type:String,required:true},
 		if_id:{type:String,required:true}, // 根据interface _id来获取数据
 		if_name:{type:String,required:true}, 
+		func_id:{type:String,required:true}, // 根据function _id来获取数据
+		func_name:{type:String,required:true}, 
 		value : {type:String,required:true}, // key 核心实现
 		delete_flag : {type:String,required:true}
 	},
@@ -36,6 +38,8 @@ module.exports = {
 		comment : {type:String,required:true},
 		if_id:{type:String,required:true}, // 根据interface _id来获取数据
 		if_name:{type:String,required:true}, 
+		func_id:{type:String,required:true}, // 根据function _id来获取数据
+		func_name:{type:String,required:true}, 
 		value : {type:String,required:true}, // key 核心实现
 		delete_flag : {type:String,required:true}
 	}

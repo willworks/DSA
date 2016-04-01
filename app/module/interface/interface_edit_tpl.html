@@ -31,7 +31,7 @@
                 <div class="col-xs-12">
                     <ol class="breadcrumb">
                         <li><a href="#/function">功能列表</a></li>
-                        <li><a href="#/function/{{id}}">接口列表</a></li>
+                        <li><a href="#/function/{{func_id}}">接口列表</a></li>
                         <li class="active">编辑接口</li>
                     </ol>
                 </div>
@@ -68,8 +68,7 @@
                             <td>{{item.meaning}}</td>
                             <td>{{item.comment}}</td>
                             <td style="white-space:nowrap">
-                                <button type="button" class="btn btn-sm btn-info"  data-animation="am-fade-and-scale" data-placement="center" ng-click="showDetail($index, item._id)">查看</button>
-                                <button type="button" class="btn btn-sm btn-danger" ng-click="deleteItemPanel($index, item._id)">删除</button>
+                                <button type="button" class="btn btn-sm btn-danger" ng-click="deleteItemPanel('req', $index, item._id)">删除</button>
                             </td>
                         </tr>
                     </tbody>
@@ -100,8 +99,7 @@
                             <td>{{item.meaning}}</td>
                             <td>{{item.comment}}</td>
                             <td style="white-space:nowrap">
-                                <button type="button" class="btn btn-sm btn-info"  data-animation="am-fade-and-scale" data-placement="center" ng-click="showDetail($index, item._id)">查看</button>
-                                <button type="button" class="btn btn-sm btn-danger" ng-click="deleteItemPanel($index, item._id)">删除</button>
+                                <button type="button" class="btn btn-sm btn-danger" ng-click="deleteItemPanel('res', $index, item._id)">删除</button>
                             </td>
                         </tr>
                     </tbody>

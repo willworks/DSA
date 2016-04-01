@@ -35,26 +35,26 @@ module.exports = function (app) {
     // 功能接口
     app.get('/DSA/func/list', funcCtrl.list);
     app.post('/DSA/func/add', funcCtrl.add);
-    app.get('/DSA/func/:id', funcCtrl.detail);// interface接口list
+    app.get('/DSA/func/:id', funcCtrl.detail);// 功能下全部接口列表
     // app.put('/DSA/func/:id/edit', funcCtrl.edit);
     app.delete('/DSA/func/:id/delete', funcCtrl.delete);
 
     // interface接口
     app.post('/DSA/if/add', ifCtrl.add);
-    app.get('/DSA/if/:id/req', ifCtrl.detailReq);
-    app.get('/DSA/if/:id/res', ifCtrl.detailRes);
-    app.put('/DSA/if/:id/edit', ifCtrl.edit);
+    app.get('/DSA/if/:id/req', ifCtrl.detailReq); // 接口请求参数列表
+    app.get('/DSA/if/:id/res', ifCtrl.detailRes); // 接口返回参数列表
+    // app.put('/DSA/if/:id/edit', ifCtrl.edit);
     app.delete('/DSA/if/:id/delete', ifCtrl.delete);
 
     // 请求参数req接口
     app.post('/DSA/req/add', reqCtrl.add);
-    app.get('/DSA/req/:id', reqCtrl.detail);
+    // app.get('/DSA/req/:id', reqCtrl.detail);
     app.put('/DSA/req/:id/edit', reqCtrl.edit);
     app.delete('/DSA/req/:id/delete', reqCtrl.delete);
 
     // 返回参数res接口
     app.post('/DSA/res/add', resCtrl.add);
-    app.get('/DSA/res/:id', resCtrl.detail);
+    // app.get('/DSA/res/:id', resCtrl.detail);
     app.put('/DSA/res/:id/edit', resCtrl.edit);
     app.delete('/DSA/res/:id/delete', resCtrl.delete);
 

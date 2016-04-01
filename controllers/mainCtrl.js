@@ -15,7 +15,7 @@ exports.get = function(req, res, next) {
     var interface_name = req.originalUrl.split('/')[3];
     var resModel = global.dbConn.getModel('res');  
 
-    resModel.findOne({"if_name": interface_name, "func_name": function_name},function(err, data){
+    resModel.find({"if_name": interface_name, "func_name": function_name, "delete_flag":'false'},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({
@@ -32,10 +32,20 @@ exports.get = function(req, res, next) {
                 "data":""
             });
         }else{
+            // 结果格式化处理
+            var resData = {};
+            var key, val;
+            for (var item in data) {
+                key = data[item].name;
+                val = data[item].value;
+                resData[key] = val;
+            }
+            console.log(resData);
+
             res.send({
                 "code":"1",
                 "msg":"success",
-                "data":data
+                "data":resData
             });
         }
     });
@@ -51,7 +61,7 @@ exports.post = function(req, res, next) {
     var interface_name = req.originalUrl.split('/')[3];
     var resModel = global.dbConn.getModel('res');  
 
-    resModel.findOne({"if_name": interface_name, "func_name": function_name},function(err, data){
+    resModel.find({"if_name": interface_name, "func_name": function_name, "delete_flag":'false'},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({
@@ -68,10 +78,20 @@ exports.post = function(req, res, next) {
                 "data":""
             });
         }else{
+            // 结果格式化处理
+            var resData = {};
+            var key, val;
+            for (var item in data) {
+                key = data[item].name;
+                val = data[item].value;
+                resData[key] = val;
+            }
+            console.log(resData);
+
             res.send({
                 "code":"1",
                 "msg":"success",
-                "data":data
+                "data":resData
             });
         }
     });

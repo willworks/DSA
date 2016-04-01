@@ -23,7 +23,8 @@ define(function(require, exports, module) {
                 function(){
                     // -------------------------混乱数据区-------------------------
                     $rootScope.title = "Interface Page";
-                    $scope.id = $window.localStorage["interface_id"];
+                    $scope.if_id = $window.localStorage["interface_id"];
+                    $scope.func_id = $window.localStorage["function_id"];
                     $scope.uname = authenticationSvc.getUserInfo().uname;
                     $scope.detailShow = true;
                     $scope.participant = false;
@@ -36,9 +37,9 @@ define(function(require, exports, module) {
                      */
 
                     $scope.init = function () {
-                        console.log($scope.id);
+                        console.log($scope.if_id);
                         // 页面加载请求数据
-                        networkSvc.getDetail('if', $scope.id, 'req')
+                        networkSvc.getDetail('if', $scope.if_id, 'req')
                         .then(
                             // networkSvc.getDetail() resolve接口
                             function(res){
@@ -71,7 +72,7 @@ define(function(require, exports, module) {
                         );
 
                         // 页面加载请求数据
-                        networkSvc.getDetail('if', $scope.id, 'res')
+                        networkSvc.getDetail('if', $scope.if_id, 'res')
                         .then(
                             // networkSvc.getDetail() resolve接口
                             function(res){
@@ -131,7 +132,8 @@ define(function(require, exports, module) {
                             "meaning":$scope.dialog.meaning,
                             "comment":$scope.dialog.comment,
                             "value":$scope.dialog.value,
-                            "if_id":$scope.id
+                            "if_id":$scope.if_id,
+                            "func_id":$scope.func_id
                         };
                         console.log($scope.dialog);
                         networkSvc.addItem($scope.type,data)
@@ -145,7 +147,7 @@ define(function(require, exports, module) {
                                         break;
                                     case '1':
                                         modal.$hide();
-                                        networkSvc.getDetail('if', $scope.id, $scope.type)
+                                        networkSvc.getDetail('if', $scope.if_id, $scope.type)
                                         .then(
                                             // networkSvc.getDetail() resolve接口
                                             function(res){
@@ -206,12 +208,50 @@ define(function(require, exports, module) {
                         );
                     }
 
-                    $scope.cancelEdit = function () {
-
+                    $scope.deleteItemPanel = function (type, index, id) {
+                        $scope.confirm = true;
+                        $scope.data = {
+                            'type' : type,
+                            'index' : index,
+                            'id' : id
+                        }
                     }
 
-                    $scope.updateItem = function () {
-                        
+                    $scope.deleteItem = function () {
+                        networkSvc.deleteItem($scope.data.type, $scope.data.id)
+                        .then(
+                            // networkSvc.deleteItem() resolve接口
+                            function(res){
+                                switch(res.data.code){
+                                    case '-99':
+                                        alert('请先登录');
+                                        $location.path("/login");
+                                        break;
+                                    case '1':
+                                        // 删除数组实时更改
+                                        if ($scope.data.type == 'req') {
+                                            $scope.reqs.splice($scope.data.index,1);
+                                        } else {
+                                            $scope.ress.splice($scope.data.index,1);
+                                        }
+                                        
+                                        $scope.confirm = false;
+                                        break;
+                                    default:
+                                        alert('失败了，程序猿在奋力为你解决');
+                                        break;
+                                }
+                            },
+                            // networkSvc.deleteItem() reject接口
+                            function(err){
+                                alert('失败了，程序猿在奋力为你解决');
+                                $log.log(err);
+                            },
+                            // networkSvc.deleteItem() notify接口
+                            function(proc){
+                                // loading
+                            }
+                        );
                     }
                     
                     //=============================end 页面主逻辑位置=============================

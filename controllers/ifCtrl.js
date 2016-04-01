@@ -53,7 +53,6 @@ exports.add = function(req, res, next) {
                         'name' : name,
                         'description' : description,
                         'method' : method,
-
                         'func_id' : func_id,
                         'func_name' : func_name,
                         'creator_id' : creator_id,
@@ -86,7 +85,7 @@ exports.detailReq = function(req, res, next) {
     var reqModel = global.dbConn.getModel('req');  
     var id = req.params.id;
 
-    reqModel.find({"if_id": id},function(err, data){
+    reqModel.find({"if_id": id, delete_flag:'false'},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({
@@ -117,7 +116,7 @@ exports.detailRes = function(req, res, next) {
     var resModel = global.dbConn.getModel('res');  
     var id = req.params.id;
 
-    resModel.find({"if_id": id},function(err, data){
+    resModel.find({"if_id": id, delete_flag:'false'},function(err, data){
         if(err){
             // 接口返回对象 res.send();
             res.send({
