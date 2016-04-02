@@ -101,69 +101,28 @@ exports.add = function(req, res, next) {
 };
 
 
-exports.detail = function(req, res, next) {
-    var resModel = global.dbConn.getModel('res');  
-    var id = req.params.id;
-
-    resModel.findOne({"_id": id},function(err, data){
-        if(err){
-            // 接口返回对象 res.send();
-            res.send({
-                "code":"0",
-                "msg":err,
-                "data":""
-            });
-            console.log(err);
-        }else if(!data){
-            req.session.error = '接口不存在';
-            res.send({
-                "code":"-2",
-                "msg":"Not Found",
-                "data":""
-            });
-        }else{
-            res.send({
-                "code":"1",
-                "msg":"success",
-                "data":data
-            });
-        }
-    });
-};
-
-
 exports.edit = function(req, res, next) {
     var resModel = global.dbConn.getModel('res'); 
-    // console.log(req.params.id);
-    // console.log(req.body);
-    var id = req.params.id;
+    // 遍历回传的数组，依次更新
     var params = req.body;
-    var delete_flag = 'true';
-
-    resModel.findOneAndUpdate({"_id": id}, params, {new: false}, function(err, data){
-        if(err){ 
-            // 接口返回对象 res.send();
-            res.send({
-                "code":"0",
-                "msg":err,
-                "data":""
-            });
-            console.log(err);
-        }else if(!data){
-            req.session.error = '接口不存在';
-            res.send({
-                "code":"-2",
-                "msg":"Not Found",
-                "data":""
-            });
-        }else{ 
-            res.send({
-                "code":"1",
-                "msg":"success",
-                "data":data
-            });
-        }
-    });
+    var flag = 1;
+    var i = 0;
+    var callback = function(){i++};
+    console.log(params);
+    
+    while(i < params.length-1) {
+        resModel
+            .findOneAndUpdate({"_id": params[i].id}, {"value": params[i].value}, {new: false}, function(err, data){
+                if(err){ 
+                    console.log(err);
+                }else if(data){ 
+                    console.log(i);
+                    console.log(data);
+                    return i++;
+                }
+            })
+            .exec(callback);
+    }
 };
 
 

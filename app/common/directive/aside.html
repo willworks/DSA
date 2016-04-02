@@ -11,14 +11,14 @@
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="button" style="width: 100px">{{res.name}}</button>
                     </span>
-                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.name" placeholder="{{res.value}}">
+                    <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="res.value" placeholder="{{res.value}}">
                 </div>
 
             </div>
 
             <div class="aside-footer">
                 <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
-                <button type="button" class="btn btn-primary" ng-click="$hide()">保存</button>
+                <button type="button" class="btn btn-primary" ng-click="asideSave()">保存</button>
             </div>
         </div>
     </div>

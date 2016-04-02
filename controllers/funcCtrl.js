@@ -176,42 +176,6 @@ exports.detail = function(req, res, next) {
     });
 };
 
-
-exports.edit = function(req, res, next) {
-    var functionModel = global.dbConn.getModel('function'); 
-    // console.log(req.params.id);
-    // console.log(req.body);
-    var id = req.params.id;
-    var params = req.body;
-    var delete_flag = 'true';
-
-    functionModel.findOneAndUpdate({"_id": id}, params, {new: false}, function(err, data){
-        if(err){ 
-            // 接口返回对象 res.send();
-            res.send({
-                "code":"0",
-                "msg":err,
-                "data":""
-            });
-            console.log(err);
-        }else if(!data){
-            req.session.error = '功能不存在';
-            res.send({
-                "code":"-2",
-                "msg":"Not Found",
-                "data":""
-            });
-        }else{ 
-            res.send({
-                "code":"1",
-                "msg":"success",
-                "data":data
-            });
-        }
-    });
-};
-
-
 exports.delete = function(req, res, next) {
     var functionModel = global.dbConn.getModel('function'); 
     // console.log(req.params.id);

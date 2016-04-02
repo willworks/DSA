@@ -176,9 +176,6 @@ define(function(require, exports, module) {
                     $scope.aside = {
                         scope: $scope,
                         title : '更新返回参数',
-                        name : ' ', 
-                        description : ' ', 
-                        func_id : ' ',
                         animation : "am-fade-and-slide-top",
                         template : "common/directive/aside.html",
                     };
@@ -201,6 +198,7 @@ define(function(require, exports, module) {
                                         break;
                                     case '1':
                                         $scope.ress = res.data.data;
+                                        console.log($scope.ress);
                                         break;
                                     default:
                                         $scope.info = '失败了，程序猿在奋力为你解决';
@@ -218,6 +216,48 @@ define(function(require, exports, module) {
                             }
                         );
                     };
+
+                    $scope.asideSave = function () {
+                        console.log($scope.ress);
+                        var data = [];
+                        for(var i in $scope.ress) {
+                            var tmp = {};
+                            tmp.id = $scope.ress[i]._id;
+                            tmp.value = $scope.ress[i].value;
+                            // data.push(tmp);
+                            data[i] = tmp;
+                        }
+                        console.log(data);
+
+                        networkSvc.updateItem('res', data)
+                        .then(
+                            // networkSvc.deleteItem() resolve接口
+                            function(res){
+                                switch(res.data.code){
+                                    case '-99':
+                                        alert('请先登录');
+                                        $location.path("/login");
+                                        break;
+                                    case '1':
+                                        // 关闭弹窗
+                                        $modal($scope.aside).hide;
+                                        break;
+                                    default:
+                                        alert('失败了，程序猿在奋力为你解决');
+                                        break;
+                                }
+                            },
+                            // networkSvc.deleteItem() reject接口
+                            function(err){
+                                alert('失败了，程序猿在奋力为你解决');
+                                $log.log(err);
+                            },
+                            // networkSvc.deleteItem() notify接口
+                            function(proc){
+                                // loading
+                            }
+                        );
+                    }
 
                     $scope.deleteItemPanel = function (index, item_id) {
                         $scope.confirm = true;

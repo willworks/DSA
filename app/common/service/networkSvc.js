@@ -92,9 +92,25 @@ define(function(require, exports, module) {
                     }
                 );
                 return deferred.promise;
+            },
+
+            updateItem : function(resource, data) {
+                var deferred = $q.defer(); // 声明承诺
+                var url = 'DSA/' + resource + '/edit';
+                $http.put(url, data)
+                .then(
+                    function(res) {
+                        deferred.resolve(res);
+                    }, 
+                    function(err) {
+                        deferred.reject(err);
+                    },
+                    function(proc) {
+                        deferred.notify('processing');
+                    }
+                );
+                return deferred.promise;
             }
-            
-            
         };
 
     }]);
