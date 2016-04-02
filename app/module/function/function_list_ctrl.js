@@ -173,15 +173,22 @@ define(function(require, exports, module) {
                         $window.localStorage["function_id"] = itemId;
                     };
 
+                    $scope.reCheck = {
+                        scope: $scope,
+                        title : '提示信息',
+                        animation : "am-fade-and-scale",
+                        template : "common/directive/reCheck.html",
+                    };
+
                     $scope.deleteItemPanel = function (index, item_id) {
-                    	$scope.confirm = true;
+                        $modal($scope.reCheck).show;
                     	$scope.data = {
                     		'index' : index,
                     		'item' : item_id
                     	}
                     }
 
-                    $scope.deleteItem = function () {
+                    $scope.deleteItem = function (fn) {
                     	networkSvc.deleteItem($scope.param, $scope.data.item)
                     	.then(
 			    			// networkSvc.deleteItem() resolve接口
@@ -194,7 +201,7 @@ define(function(require, exports, module) {
 			    		            case '1':
 			    		                // 删除数组实时更改
 			    		            	$scope.item.splice($scope.data.index,1);
-			    		            	$scope.confirm = false;
+			    		            	fn;
 			    		                break;
 			    		            default:
 				    		            alert('失败了，程序猿在奋力为你解决');

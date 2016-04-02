@@ -106,23 +106,25 @@ exports.edit = function(req, res, next) {
     // 遍历回传的数组，依次更新
     var params = req.body;
     var flag = 1;
-    var i = 0;
-    var callback = function(){i++};
+    var i = params.length;
     console.log(params);
     
-    while(i < params.length-1) {
+    while(i--) {
+        console.log(i);
         resModel
             .findOneAndUpdate({"_id": params[i].id}, {"value": params[i].value}, {new: false}, function(err, data){
                 if(err){ 
                     console.log(err);
                 }else if(data){ 
-                    console.log(i);
                     console.log(data);
-                    return i++;
                 }
             })
-            .exec(callback);
     }
+    res.send({
+        "code":"1",
+        "msg":"success",
+        "data":""
+    });
 };
 
 

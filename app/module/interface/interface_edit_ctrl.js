@@ -208,8 +208,15 @@ define(function(require, exports, module) {
                         );
                     }
 
+                    $scope.reCheck = {
+                        scope: $scope,
+                        title : '提示信息',
+                        animation : "am-fade-and-scale",
+                        template : "common/directive/reCheck.html",
+                    };
+
                     $scope.deleteItemPanel = function (type, index, id) {
-                        $scope.confirm = true;
+                        $modal($scope.reCheck).show;
                         $scope.data = {
                             'type' : type,
                             'index' : index,
@@ -217,7 +224,7 @@ define(function(require, exports, module) {
                         }
                     }
 
-                    $scope.deleteItem = function () {
+                    $scope.deleteItem = function (fn) {
                         networkSvc.deleteItem($scope.data.type, $scope.data.id)
                         .then(
                             // networkSvc.deleteItem() resolve接口
@@ -235,7 +242,7 @@ define(function(require, exports, module) {
                                             $scope.ress.splice($scope.data.index,1);
                                         }
                                         
-                                        $scope.confirm = false;
+                                        fn;
                                         break;
                                     default:
                                         alert('失败了，程序猿在奋力为你解决');

@@ -1,0 +1,21 @@
+<div class="modal center am-fade-and-scale" tabindex="-1" role="dialog" style="z-index: 1050; display: block;">
+	<div class="modal-dialog" style="width: 20%">
+		<div class="modal-content">
+
+			<div class="modal-header" ng-show="title">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 class="modal-title" ng-bind-html="title">Title</h4>
+			</div>
+
+			<div class="modal-body">
+				<h4 class="modal-title" style="text-align:center">确认删除？</h4>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="$hide()">关闭</button> 
+				<button type="button" class="btn btn-danger" ng-click="deleteItem($hide())">删除</button>
+			</div>
+
+		</div>
+	</div>
+</div>
