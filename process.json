@@ -7,7 +7,6 @@
 		"error_file" : "logs/DSA-err.log",
 		"out_file"   : "logs/DSA-out.log",
 		"pid_file"   : "logs/DSA.pid",
-		"exec_mode"  : "cluster_mode",
-		"watch"      :  true
+		"exec_mode"  : "cluster"
 	}]
 }
