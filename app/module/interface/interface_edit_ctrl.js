@@ -115,7 +115,7 @@ define(function(require, exports, module) {
                         comment : ' ',
                         value : ' ',
                         animation : "am-fade-and-slide-top",
-                        template : "common/directive/dialog.html",
+                        templateUrl : "common/directive/dialog.html",
                     };
 
                     // 弹出新增页面
@@ -212,7 +212,7 @@ define(function(require, exports, module) {
                         scope: $scope,
                         title : '提示信息',
                         animation : "am-fade-and-scale",
-                        template : "common/directive/reCheck.html",
+                        templateUrl : "common/directive/reCheck.html",
                     };
 
                     $scope.deleteItemPanel = function (type, index, id) {

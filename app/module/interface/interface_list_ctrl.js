@@ -83,7 +83,7 @@ define(function(require, exports, module) {
                         description : ' ', 
                         method : ' ',
                         animation : "am-fade-and-slide-top",
-                        template : "common/directive/dialog.html",
+                        templateUrl : "common/directive/dialog.html",
                     };
 
                     // 弹出新增页面
@@ -177,7 +177,7 @@ define(function(require, exports, module) {
                         scope: $scope,
                         title : '更新返回参数',
                         animation : "am-fade-and-slide-top",
-                        template : "common/directive/aside.html",
+                        templateUrl : "common/directive/aside.html",
                     };
 
                     // 弹出编辑页面
@@ -263,7 +263,7 @@ define(function(require, exports, module) {
                         scope: $scope,
                         title : '提示信息',
                         animation : "am-fade-and-scale",
-                        template : "common/directive/reCheck.html",
+                        templateUrl : "common/directive/reCheck.html",
                     };
 
                     $scope.deleteItemPanel = function (index, item_id) {
