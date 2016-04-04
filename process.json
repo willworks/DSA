@@ -1,0 +1,13 @@
+{
+	"apps" : [{
+		"name"        : "DSA",
+		"script"      : "bin/www",
+		"log_date_format"  : "YYYY-MM-DD HH:mm:SS",
+		"log_file"   : "logs/DSA.log",
+		"error_file" : "logs/DSA-err.log",
+		"out_file"   : "logs/DSA-out.log",
+		"pid_file"   : "logs/DSA.pid",
+		"exec_mode"  : "cluster_mode",
+		"watch"      :  true
+	}]
+}
