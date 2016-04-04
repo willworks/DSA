@@ -9,5 +9,15 @@
 		"pid_file"   : "logs/DSA.pid",
 		"exec_mode"  : "cluster_mode",
 		"watch"      :  true
-	}]
+	},{
+	    "name"       : "app",
+	    "script"     : "api.js",
+	    "log_date_format"  : "YYYY-MM-DD HH:mm:SS",
+	    "log_file"   : "logs/app.log",
+	    "error_file" : "logs/app-err.log",
+	    "out_file"   : "logs/app-out.log",
+	    "pid_file"   : "logs/app.pid",
+	    "exec_mode"  : "cluster",
+	    "watch"      :  true
+  }]
 }
