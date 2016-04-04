@@ -84,12 +84,48 @@ define(function(require, exports, module) {
 
                     	animation : "am-fade-and-slide-top",
                     	templateUrl : "common/directive/dialog.html",
+                        participants : [{"name":"Gear","id":"1"},{"name":"Globe","id":"12"},{"name":"Heart","id":"123"},{"name":"Camera","id":"1234"}]
                     };
 
                     // 弹出新增页面
                     $scope.addItemPanel = function() {
-                        $modal($scope.dialog).show;
+                        networkSvc.getDetail('list', 'user')
+                        .then(
+                            // networkSvc.getDetail() resolve接口
+                            function(res){
+                                switch(res.data.code){
+                                    case '-99':
+                                        alert('请先登录');
+                                        $location.path("/login");
+                                        break;
+                                    case '0':
+                                        alert('失败了，程序猿在奋力为你解决');
+                                        break;
+                                    case '1':
+                                        $modal($scope.dialog).show;
+                                        console.log(res.data.data);
+                                        $scope.dialog.participants = res.data.data;
+                                        break;
+                                    default:
+                                        alert('失败了，程序猿在奋力为你解决');
+                                        break;
+                                }
+                            },
+                            // networkSvc.getDetail() reject接口
+                            function(err){
+                                alert('失败了，程序猿在奋力为你解决');
+                                $log.log(err);
+                            },
+                            // networkSvc.getDetail() notify接口
+                            function(proc){
+                                // loading
+                            }
+                        );
                     };
+
+                    $scope.selectParticipant = function() {
+                        console.log($scope.dialog.participant_id);
+                    }
 
                     // 新增内容
                     $scope.addItem = function (modal) {

@@ -1,12 +1,41 @@
 /// <reference path="../typings/node/node.d.ts"/>
+/// 
+exports.listUser = function(req, res, next) {
+    var userModel = global.dbConn.getModel('user');  
 
+    // 查询子文档
+    userModel.find({delete_flag:'false'}, '_id, name', function(err, data){
+        if(err){ 
+            // 接口返回对象 res.send();
+            res.send({
+                "code":"0",
+                "msg":err,
+                "data":""
+            });
+            console.log(err);
+        }else if(!data){
+            req.session.error = '通知不存在';
+            res.send({
+                "code":"-2",
+                "msg":"Not Found",
+                "data":""
+            });
+        }else{ 
+            res.send({
+                "code":"1",
+                "msg":"success",
+                "data":data
+            });
+        }
+    });
+};
 
 exports.searchUser = function(req, res, next) {
-    var noticeModel = global.dbConn.getModel('user');  
+    var userModel = global.dbConn.getModel('user');  
     var user_id = req.session.user._id;
 
     // 查询子文档
-    noticeModel.find({'user_id.userId':user_id, delete_flag:'false'},function(err, data){
+    userModel.find({'user_id.userId':user_id, delete_flag:'false'},function(err, data){
         if(err){ 
             // 接口返回对象 res.send();
             res.send({
@@ -34,11 +63,11 @@ exports.searchUser = function(req, res, next) {
 
 
 exports.searchFunc = function(req, res, next) {
-    var noticeModel = global.dbConn.getModel('user');  
+    var userModel = global.dbConn.getModel('user');  
     var user_id = req.session.user._id;
 
     // 查询子文档
-    noticeModel.find({'user_id.userId':user_id, delete_flag:'false'},function(err, data){
+    userModel.find({'user_id.userId':user_id, delete_flag:'false'},function(err, data){
         if(err){ 
             // 接口返回对象 res.send();
             res.send({
@@ -66,11 +95,11 @@ exports.searchFunc = function(req, res, next) {
 
 
 exports.searchIf = function(req, res, next) {
-    var noticeModel = global.dbConn.getModel('user');  
+    var userModel = global.dbConn.getModel('user');  
     var user_id = req.session.user._id;
 
     // 查询子文档
-    noticeModel.find({'user_id.userId':user_id, delete_flag:'false'},function(err, data){
+    userModel.find({'user_id.userId':user_id, delete_flag:'false'},function(err, data){
         if(err){ 
             // 接口返回对象 res.send();
             res.send({

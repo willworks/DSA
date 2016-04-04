@@ -27,7 +27,14 @@
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button">参与人员</button>
 					</span>
-					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.participant_id">
+
+					<!-- 					
+					<input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" data-trigger="focus" ng-model="dialog.participant_id" ng-focus="selectParticipant()"> 
+					-->
+					 
+					<!-- angularStrap select -->
+					<button type="button" class="btn btn-default" ng-model="dialog.participant_id" data-multiple="1" bs-options="participant._id as participant.name for participant in dialog.participants" bs-select ng-click="selectParticipant()" data-placeholder="选择项目参与者"></button>
+
 				</div>
 
 				<div class="input-group" ng-if="interfaceShow">

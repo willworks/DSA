@@ -50,8 +50,6 @@ exports.add = function(req, res, next) {
     var participant_id = req.body.participant_id;
     var delete_flag = 'false';
 
-    participant_id = participant_id.split(',');
-    participant_id.push(req.session.user._id);
     console.log(participant_id);
     // 格式化提交参数
     var participant = [];

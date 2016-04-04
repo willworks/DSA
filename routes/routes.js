@@ -28,6 +28,7 @@ module.exports = function (app) {
     app.post('/dev/addUser', devCtrl.addUser);
 
     // 搜索接口
+    app.get('/DSA/list/user', utilCtrl.listUser);
     app.get('/DSA/search/user', utilCtrl.searchUser);
     app.get('/DSA/search/func', utilCtrl.searchFunc);
     app.get('/DSA/search/if', utilCtrl.searchIf);
