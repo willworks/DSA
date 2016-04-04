@@ -74,6 +74,12 @@ define(function(require, exports, module) {
                 }]
             }
         })
+        .when('/backdoor', {
+            name:"开发专业后门",
+            controller: 'backdoorCtrl',
+            controllerUrl: './module/backdoor/backdoor_ctrl.js',
+            templateUrl: './module/backdoor/backdoor_tpl.html'
+        })
         .otherwise({
             redirectTo: '/function'
         });

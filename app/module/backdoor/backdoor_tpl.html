@@ -1,0 +1,14 @@
+<div class="container">
+    <form class="form-signin">
+        <h3 class="form-signin-heading">添加用户</h3>
+        <div class="alert" role="alert" ng-show="infoShow" ng-class="{true: 'alert-success', false: 'alert-danger'}[infoSuccess]">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<span class="sr-only">Error:</span>
+			{{info}}
+        </div>
+        <input ng-model="uname" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input ng-model="upwd" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox"></div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click='addUser()'>添加</button>
+    </form>
+</div> 
