@@ -11,7 +11,7 @@
 		"watch"      :  true
 	},{
 	    "name"       : "app",
-	    "script"     : "api.js",
+	    "script"     : "app.js",
 	    "log_date_format"  : "YYYY-MM-DD HH:mm:SS",
 	    "log_file"   : "logs/app.log",
 	    "error_file" : "logs/app-err.log",
