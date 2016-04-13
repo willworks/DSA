@@ -306,6 +306,44 @@ define(function(require, exports, module) {
                         );
                     }
                     
+                    $scope.searchKey = '';
+                    $scope.search = function () {
+                        if ($scope.searchKey == '' || $scope.searchKey == ' ' || $scope.searchKey == undefined) {
+                            alert('请输入搜索关键字');
+                        } else {
+                            console.log($scope.id);
+                            networkSvc.searchIf($scope.id, $scope.searchKey)
+                            .then(
+                                // networkSvc.searchFunc() resolve接口
+                                function(res){
+                                    switch(res.data.code){
+                                        case '-99':
+                                            alert('请先登录');
+                                            $location.path("/login");
+                                            break;
+                                        case '1':
+                                            // 实时更改搜索结果
+                                            console.log(res.data.data);
+                                            $scope.item = res.data.data;
+                                            break;
+                                        default:
+                                            alert('失败了，程序猿在奋力为你解决');
+                                            break;
+                                    }
+                                },
+                                // networkSvc.searchFunc() reject接口
+                                function(err){
+                                    alert('失败了，程序猿在奋力为你解决');
+                                    $log.log(err);
+                                },
+                                // networkSvc.searchFunc() notify接口
+                                function(proc){
+                                    // loading
+                                }
+                            );
+                    }
+                    }
+
                     //=============================end 页面主逻辑位置=============================
                 },
                 // 客户端以及登陆而服务器端未登录

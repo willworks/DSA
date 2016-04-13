@@ -110,6 +110,42 @@ define(function(require, exports, module) {
                     }
                 );
                 return deferred.promise;
+            },
+
+            searchFunc : function(key) {
+                var deferred = $q.defer(); // 声明承诺
+                var url = 'DSA/search/func?key=' + key;
+                $http.get(url)
+                .then(
+                    function(res) {
+                        deferred.resolve(res);
+                    }, 
+                    function(err) {
+                        deferred.reject(err);
+                    },
+                    function(proc) {
+                        deferred.notify('processing');
+                    }
+                );
+                return deferred.promise;
+            },
+
+            searchIf : function(func_id, key) {
+                var deferred = $q.defer(); // 声明承诺
+                var url = 'DSA/search/if?key=' + key + '&func_id=' + func_id;
+                $http.get(url)
+                .then(
+                    function(res) {
+                        deferred.resolve(res);
+                    }, 
+                    function(err) {
+                        deferred.reject(err);
+                    },
+                    function(proc) {
+                        deferred.notify('processing');
+                    }
+                );
+                return deferred.promise;
             }
         };
 
